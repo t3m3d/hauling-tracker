@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#17242b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Haul Ledger</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="stylesheet" href="styles.css?v=2">
+  </head>
+  <body class="gate-mode">
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img src="icon.svg" alt="" class="brand-mark">
+          <div>
+            <p class="eyebrow">Haul Ledger</p>
+            <h1 id="pageTitle">Choose App</h1>
+          </div>
+        </div>
+        <button id="switchInterfaceButton" class="secondary-button compact-button" type="button" hidden>Switch</button>
+      </header>
+
+      <main>
+        <section id="interfaceGate" class="interface-gate active" aria-label="Choose interface">
+          <div class="gate-card owner-entry">
+            <h2>Owner</h2>
+            <p class="meta">Dashboard, profit entry, job editing, and net reports.</p>
+            <form id="ownerSetupForm" class="gate-form" hidden>
+              <label class="field">
+                <span>Create Owner PIN</span>
+                <input id="ownerSetupPin" type="password" inputmode="numeric" autocomplete="new-password" placeholder="6-digit PIN" minlength="6" maxlength="6" pattern="[0-9]{6}" required>
+              </label>
+              <label class="field">
+                <span>Confirm PIN</span>
+                <input id="ownerSetupPinConfirm" type="password" inputmode="numeric" autocomplete="new-password" placeholder="Confirm PIN" minlength="6" maxlength="6" pattern="[0-9]{6}" required>
+              </label>
+              <button class="primary-button wide" type="submit">Create Owner PIN</button>
+            </form>
+            <form id="ownerLoginForm" class="gate-form">
+              <label class="field">
+                <span>Owner PIN</span>
+                <input id="ownerPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="6-digit PIN" minlength="6" maxlength="6" pattern="[0-9]{6}" required>
+              </label>
+              <button class="primary-button wide" type="submit">Open Owner Dashboard</button>
+            </form>
+          </div>
+
+          <div class="gate-card driver-entry">
+            <h2>Driver</h2>
+            <p class="meta">Assigned jobs, expenses, and time only.</p>
+            <form id="driverLoginForm" class="gate-form">
+              <label class="field">
+                <span>Access Token</span>
+                <input id="driverToken" type="password" inputmode="text" autocomplete="one-time-code" placeholder="Driver token" required>
+              </label>
+              <button class="secondary-button wide" type="submit">Open Driver App</button>
+            </form>
+          </div>
+        </section>
+
+        <section id="toolbar" class="toolbar">
+          <label class="field compact">
+            <span>Date</span>
+            <input id="workDate" type="date">
+          </label>
+        </section>
+
+        <section id="ownerView" class="view" aria-label="Owner dashboard">
+          <div class="summary-grid" id="summaryGrid"></div>
+
+          <div class="section-head">
+            <h2>Jobs</h2>
+            <button id="addJobButton" class="primary-button" type="button">Add Job</button>
+          </div>
+          <div id="jobList" class="list"></div>
+
+          <div class="section-head">
+            <h2>Expenses</h2>
+          </div>
+          <div id="expenseList" class="list"></div>
+
+          <div class="section-head">
+            <h2>Net Breakdown</h2>
+          </div>
+          <div id="breakdownList" class="list"></div>
+
+          <div class="section-head">
+            <h2>Drivers</h2>
+          </div>
+          <form id="driverForm" class="entry-form">
+            <label class="field">
+              <span>Driver Name</span>
+              <input id="driverNameInput" type="text" maxlength="60" placeholder="New driver name" required>
+            </label>
+            <button class="secondary-button wide" type="submit">Add Driver</button>
+          </form>
+          <div id="driverList" class="list driver-list"></div>
+
+          <div class="section-head">
+            <h2>Trucks</h2>
+          </div>
+          <form id="truckForm" class="entry-form">
+            <label class="field">
+              <span>Truck Name</span>
+              <input id="truckNameInput" type="text" maxlength="60" placeholder="Truck 12" required>
+            </label>
+            <button class="secondary-button wide" type="submit">Add Truck</button>
+          </form>
+          <div id="truckList" class="list driver-list"></div>
+        </section>
+
+        <section id="driverView" class="view" aria-label="Driver entry">
+          <div id="driverSummary" class="driver-summary"></div>
+
+          <div class="section-head">
+            <h2>Assigned Jobs</h2>
+          </div>
+          <div id="assignedJobs" class="list"></div>
+
+          <div class="section-head">
+            <h2>Add Expense</h2>
+          </div>
+          <form id="expenseForm" class="entry-form">
+            <label class="field">
+              <span>Job</span>
+              <select id="expenseJob"></select>
+            </label>
+            <div class="form-row">
+              <label class="field">
+                <span>Type</span>
+                <select id="expenseType"></select>
+              </label>
+              <label class="field">
+                <span>Amount</span>
+                <input id="expenseAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" required>
+              </label>
+            </div>
+            <label class="field">
+              <span>Note</span>
+              <input id="expenseNote" type="text" maxlength="80" placeholder="Fuel stop, DEF, toll...">
+            </label>
+            <button class="primary-button wide" type="submit">Save Expense</button>
+          </form>
+
+          <div class="section-head">
+            <h2>Time</h2>
+          </div>
+          <form id="timeForm" class="entry-form">
+            <label class="field">
+              <span>Job</span>
+              <select id="timeJob"></select>
+            </label>
+            <div class="form-row">
+              <label class="field">
+                <span>Start</span>
+                <input id="timeStart" type="time" required>
+              </label>
+              <label class="field">
+                <span>End</span>
+                <input id="timeEnd" type="time" required>
+              </label>
+            </div>
+            <button class="secondary-button wide" type="submit">Save Time</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="jobDialog">
+      <form id="jobForm" method="dialog" class="dialog-form">
+        <div class="dialog-head">
+          <h2 id="jobDialogTitle">Add Job</h2>
+          <button class="icon-button" value="cancel" type="submit" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+        <input id="jobId" type="hidden">
+        <label class="field">
+          <span>Customer / Material</span>
+          <input id="jobName" type="text" maxlength="70" required>
+        </label>
+        <label class="field">
+          <span>Route</span>
+          <input id="jobRoute" type="text" maxlength="90" placeholder="Quarry to site">
+        </label>
+        <div class="form-row">
+          <label class="field">
+            <span>Driver</span>
+            <select id="jobDriver"></select>
+          </label>
+          <label class="field">
+            <span>Truck</span>
+            <select id="jobTruck"></select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="field">
+            <span>Loads</span>
+            <input id="jobLoads" type="number" min="1" step="1" inputmode="numeric" required>
+          </label>
+          <label class="field">
+            <span>Profit / Load</span>
+            <input id="jobProfitPerLoad" type="number" min="0" step="0.01" inputmode="decimal" required>
+          </label>
+        </div>
+        <menu>
+          <button class="secondary-button" value="cancel" type="submit">Cancel</button>
+          <button id="saveJobButton" class="primary-button" value="default" type="submit">Save Job</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js?v=2" defer></script>
+  </body>
+</html>

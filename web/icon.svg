@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Haul Ledger">
+  <rect width="96" height="96" rx="20" fill="#17242b"/>
+  <path d="M18 53h9l5-18h29l8 18h9v14H18V53Z" fill="#f4f7f4"/>
+  <path d="M34 41h21l4 9H31l3-9Z" fill="#2d6f9f"/>
+  <path d="M22 63h52" stroke="#17242b" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="68" r="8" fill="#bd7a20"/>
+  <circle cx="66" cy="68" r="8" fill="#bd7a20"/>
+  <circle cx="32" cy="68" r="3" fill="#17242b"/>
+  <circle cx="66" cy="68" r="3" fill="#17242b"/>
+  <path d="M21 28h34" stroke="#2f7d4b" stroke-width="7" stroke-linecap="round"/>
+  <path d="M21 39h20" stroke="#2f7d4b" stroke-width="7" stroke-linecap="round"/>
+</svg>
